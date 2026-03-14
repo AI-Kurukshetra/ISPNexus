@@ -13,36 +13,36 @@ import { getSupabaseAdminClient } from "./admin";
  * password-reset interaction) we fall back to a recovery email.
  */
 export async function sendInviteEmail({
-  email,
-  setPasswordUrl,
+    email,
+    setPasswordUrl,
 }: {
-  email: string;
-  setPasswordUrl: string;
+    email: string;
+    setPasswordUrl: string;
 }): Promise<void> {
-  const supabase = getSupabaseAdminClient();
+    const supabase = getSupabaseAdminClient();
 
-  const { error } = await supabase.auth.admin.inviteUserByEmail(email, {
-    redirectTo: setPasswordUrl,
-  });
+    const { error } = await supabase.auth.admin.inviteUserByEmail(email, {
+        redirectTo: setPasswordUrl,
+    });
 
-  if (!error) return;
+    if (!error) return;
 
-  // User already exists in Supabase Auth — fall back to a recovery email.
-  const alreadyExists =
-    error.status === 422 ||
-    error.message?.toLowerCase().includes("already been registered") ||
-    error.message?.toLowerCase().includes("already exists") ||
-    error.message?.toLowerCase().includes("already registered");
+    // User already exists in Supabase Auth — fall back to a recovery email.
+    const alreadyExists =
+        error.status === 422 ||
+        error.message?.toLowerCase().includes("already been registered") ||
+        error.message?.toLowerCase().includes("already exists") ||
+        error.message?.toLowerCase().includes("already registered");
 
-  if (!alreadyExists) {
-    throw new Error(`Failed to send invite email: ${error.message}`);
-  }
+    if (!alreadyExists) {
+        throw new Error(`Failed to send invite email: ${error.message}`);
+    }
 
-  const { error: resetError } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: setPasswordUrl,
-  });
+    const { error: resetError } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: setPasswordUrl,
+    });
 
-  if (resetError) {
-    throw new Error(`Failed to send invite email (fallback): ${resetError.message}`);
-  }
+    if (resetError) {
+        throw new Error(`Failed to send invite email (fallback): ${resetError.message}`);
+    }
 }

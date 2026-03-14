@@ -266,7 +266,7 @@ textarea {
     background: rgba(13, 92, 123, 0.035);
   }
 
-  .ui-data-list > * + * {
+  .ui-data-list>*+* {
     margin-top: 0.85rem;
   }
 
@@ -284,6 +284,7 @@ textarea {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {

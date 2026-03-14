@@ -34,9 +34,8 @@ export function KpiCard({
         {value}
       </p>
       <div
-        className={`mt-3 flex items-center gap-1.5 text-sm font-medium ${
-          isPositive ? "text-emerald-600" : isNegative ? "text-rose-500" : "text-slate-400"
-        }`}
+        className={`mt-3 flex items-center gap-1.5 text-sm font-medium ${isPositive ? "text-emerald-600" : isNegative ? "text-rose-500" : "text-slate-400"
+          }`}
       >
         {isPositive && <TrendingUp aria-hidden className="h-3.5 w-3.5 shrink-0" />}
         {isNegative && <TrendingDown aria-hidden className="h-3.5 w-3.5 shrink-0" />}

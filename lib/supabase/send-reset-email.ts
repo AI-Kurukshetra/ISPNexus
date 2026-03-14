@@ -25,38 +25,38 @@ import { getSupabaseAdminClient } from "./admin";
  *   → Add: https://<your-domain>/reset-password   (prod)
  */
 export async function sendPasswordResetEmail({
-  email,
-  resetUrl,
-}: {
-  email: string;
-  resetUrl: string;
-}): Promise<void> {
-  const supabase = getSupabaseAdminClient();
-
-  // Ensure the email exists as a Supabase Auth user so resetPasswordForEmail works.
-  // Ignore "already registered" — the shadow account already exists.
-  const { error: createError } = await supabase.auth.admin.createUser({
     email,
-    email_confirm: true,
-    // Random unguessable password — user never logs in via Supabase Auth.
-    password: crypto.randomUUID() + crypto.randomUUID(),
-  });
+    resetUrl,
+}: {
+    email: string;
+    resetUrl: string;
+}): Promise<void> {
+    const supabase = getSupabaseAdminClient();
 
-  if (
-    createError &&
-    !createError.message.toLowerCase().includes("already") &&
-    !createError.message.toLowerCase().includes("duplicate") &&
-    createError.status !== 422
-  ) {
-    throw new Error(`Supabase shadow user error: ${createError.message}`);
-  }
+    // Ensure the email exists as a Supabase Auth user so resetPasswordForEmail works.
+    // Ignore "already registered" — the shadow account already exists.
+    const { error: createError } = await supabase.auth.admin.createUser({
+        email,
+        email_confirm: true,
+        // Random unguessable password — user never logs in via Supabase Auth.
+        password: crypto.randomUUID() + crypto.randomUUID(),
+    });
 
-  // This is the call that actually delivers the email.
-  const { error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: resetUrl,
-  });
+    if (
+        createError &&
+        !createError.message.toLowerCase().includes("already") &&
+        !createError.message.toLowerCase().includes("duplicate") &&
+        createError.status !== 422
+    ) {
+        throw new Error(`Supabase shadow user error: ${createError.message}`);
+    }
 
-  if (error) {
-    throw new Error(`Supabase send email error: ${error.message}`);
-  }
+    // This is the call that actually delivers the email.
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: resetUrl,
+    });
+
+    if (error) {
+        throw new Error(`Supabase send email error: ${error.message}`);
+    }
 }

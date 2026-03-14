@@ -153,9 +153,8 @@ export function SignupForm() {
               {RULES.map((_, i) => (
                 <div
                   key={i}
-                  className={`h-1 flex-1 rounded-full transition-colors duration-300 ${
-                    i < score ? (strength?.color ?? "bg-slate-200") : "bg-slate-100"
-                  }`}
+                  className={`h-1 flex-1 rounded-full transition-colors duration-300 ${i < score ? (strength?.color ?? "bg-slate-200") : "bg-slate-100"
+                    }`}
                 />
               ))}
             </div>
@@ -163,13 +162,12 @@ export function SignupForm() {
             {/* Label */}
             {strength && (
               <p
-                className={`text-xs font-semibold ${
-                  score <= 2
+                className={`text-xs font-semibold ${score <= 2
                     ? "text-red-500"
                     : score === 3
                       ? "text-amber-500"
                       : "text-emerald-600"
-                }`}
+                  }`}
               >
                 {strength.label} password
               </p>
