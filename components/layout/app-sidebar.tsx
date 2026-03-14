@@ -39,13 +39,12 @@ export function AppSidebar() {
 
   return (
     <aside
-      className={`border-b border-white/60 bg-white/65 backdrop-blur-xl transition-all lg:sticky lg:top-0 lg:flex lg:min-h-screen lg:flex-col lg:border-b-0 lg:border-r ${isSidebarCollapsed ? "lg:w-24" : "lg:w-80"
-        }`}
+      className={`border-b border-slate-100 bg-white transition-all lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col lg:overflow-y-auto lg:border-b-0 lg:border-r lg:border-slate-100 ${isSidebarCollapsed ? "lg:w-20" : "lg:w-64"}`}
     >
       <div className="flex h-full flex-col gap-4 px-4 py-4 sm:px-6 lg:px-4 lg:py-6">
-        <div className="flex items-start justify-between gap-3">
+        <div className={`flex items-center gap-3 ${isSidebarCollapsed ? "flex-col" : "justify-between"}`}>
           <div className="flex min-w-0 items-center gap-3">
-            <div className="rounded-[20px] bg-[linear-gradient(135deg,var(--brand-primary),var(--brand-primary-strong))] p-3 text-white shadow-[0_16px_32px_rgba(9,58,83,0.22)]">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-linear-to-br from-[#0d5c7b] to-[#093a53] text-white shadow-[0_4px_12px_rgba(9,58,83,0.25)]">
               <Building2 className="h-5 w-5" />
             </div>
             {!isSidebarCollapsed ? (
@@ -63,7 +62,7 @@ export function AppSidebar() {
               type="button"
               title={isSidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
               onClick={() => setSidebarCollapsed(!isSidebarCollapsed)}
-              className="ui-button-secondary hidden h-11 w-11 rounded-[16px] px-0 lg:inline-flex"
+              className="hidden h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-slate-200 text-slate-400 transition hover:bg-slate-50 hover:text-slate-600 lg:inline-flex"
             >
               {isSidebarCollapsed ? (
                 <ChevronRight className="h-4 w-4" />
@@ -88,10 +87,9 @@ export function AppSidebar() {
               type="button"
               title={userName}
               onClick={() => setIsMenuOpen((open) => !open)}
-              className={`flex w-full items-center gap-3 rounded-[24px] border border-white/80 bg-white/80 px-3 py-3 text-left shadow-[0_20px_38px_rgba(10,32,51,0.08)] transition hover:bg-white ${isSidebarCollapsed ? "justify-center px-2.5" : ""
-                }`}
+              className={`flex w-full items-center gap-3 rounded-xl border border-slate-100 bg-slate-50 px-3 py-2.5 text-left transition hover:bg-slate-100 ${isSidebarCollapsed ? "justify-center px-2.5" : ""}`}
             >
-              <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[linear-gradient(135deg,var(--brand-primary),var(--brand-primary-strong))] text-sm font-semibold text-white shadow-[0_12px_24px_rgba(9,58,83,0.2)]">
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-linear-to-br from-[#0d5c7b] to-[#093a53] text-xs font-bold text-white">
                 {initials}
               </div>
               {!isSidebarCollapsed ? (
@@ -103,11 +101,11 @@ export function AppSidebar() {
             </button>
 
             {isMenuOpen ? (
-              <div className="absolute bottom-16 left-0 z-20 w-full rounded-[22px] border border-white/85 bg-white/95 p-2 shadow-[0_24px_48px_rgba(10,32,51,0.16)] backdrop-blur">
+              <div className="absolute bottom-14 left-0 z-20 w-full rounded-xl border border-slate-100 bg-white p-1.5 shadow-[0_8px_32px_rgba(10,32,51,0.12)]">
                 <Link
                   href="/settings"
                   onClick={() => setIsMenuOpen(false)}
-                  className="flex items-center gap-2 rounded-[16px] px-3 py-2.5 text-sm text-slate-700 transition hover:bg-slate-50"
+                  className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-600 transition hover:bg-slate-50 hover:text-slate-900"
                 >
                   <UserCircle2 className="h-4 w-4" />
                   Profile
@@ -115,7 +113,7 @@ export function AppSidebar() {
                 <Link
                   href="/settings"
                   onClick={() => setIsMenuOpen(false)}
-                  className="flex items-center gap-2 rounded-[16px] px-3 py-2.5 text-sm text-slate-700 transition hover:bg-slate-50"
+                  className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-600 transition hover:bg-slate-50 hover:text-slate-900"
                 >
                   <Settings className="h-4 w-4" />
                   Settings
@@ -123,7 +121,7 @@ export function AppSidebar() {
                 <button
                   type="button"
                   onClick={() => signOut({ callbackUrl: "/login" })}
-                  className="flex w-full items-center gap-2 rounded-[16px] px-3 py-2.5 text-sm font-medium text-rose-600 transition hover:bg-rose-50"
+                  className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-rose-500 transition hover:bg-rose-50"
                 >
                   <LogOut className="h-4 w-4" />
                   Sign out

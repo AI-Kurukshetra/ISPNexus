@@ -13,17 +13,15 @@ export default async function LoginPage({
   const callbackUrl = next?.startsWith("/") ? next : "/dashboard";
 
   return (
-    <main className="auth-shell">
-      <section className="auth-panel">
-        <div className="relative">
-          <p className="ui-eyebrow">ISPNexus</p>
-          <h1 className="mt-3 text-3xl font-semibold text-slate-950">Operator Sign In</h1>
-        </div>
-
-        <div className="mt-6">
-          <LoginForm callbackUrl={callbackUrl} />
-        </div>
-      </section>
-    </main>
+    <>
+      <div className="mb-8">
+        <h1 className="text-2xl font-bold tracking-tight text-slate-900">Welcome back</h1>
+        <p className="mt-1.5 text-sm text-slate-500">
+          Sign in to your operator console
+        </p>
+      </div>
+      <hr className="mb-8 border-slate-100" />
+      <LoginForm callbackUrl={callbackUrl} />
+    </>
   );
 }

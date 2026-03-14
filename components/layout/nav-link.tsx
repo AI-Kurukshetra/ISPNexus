@@ -22,26 +22,25 @@ export function NavLink({
       href={item.href}
       title={item.label}
       className={cn(
-        "group relative flex items-center gap-3 rounded-[18px] border px-3 py-3 text-sm font-medium transition duration-200",
-        collapsed && "justify-center px-2.5 lg:px-2.5",
+        "group flex items-center gap-2.5 rounded-xl px-2.5 py-2 text-sm font-medium transition-all duration-150",
+        collapsed && "justify-center",
         isActive
-          ? "border-[rgba(13,92,123,0.18)] bg-[linear-gradient(135deg,rgba(13,92,123,0.14),rgba(255,255,255,0.92))] text-[var(--brand-primary)] shadow-[0_14px_28px_rgba(13,92,123,0.10)]"
-          : "border-transparent bg-white/55 text-slate-600 hover:border-white/80 hover:bg-white/92 hover:text-slate-950",
+          ? "bg-[#0d5c7b]/10 text-[#0d5c7b]"
+          : "text-slate-500 hover:bg-slate-100 hover:text-slate-800",
       )}
     >
       <span
         className={cn(
-          "flex h-9 w-9 items-center justify-center rounded-[14px] border border-white/70 bg-white/85 text-slate-500 shadow-[inset_0_1px_0_rgba(255,255,255,0.65)] transition group-hover:text-[var(--brand-primary)]",
-          isActive &&
-            "border-transparent bg-[linear-gradient(135deg,var(--brand-primary),var(--brand-primary-strong))] text-white shadow-[0_12px_24px_rgba(9,58,83,0.2)]",
+          "flex h-8 w-8 shrink-0 items-center justify-center rounded-lg transition-colors",
+          isActive
+            ? "bg-[#0d5c7b] text-white shadow-[0_4px_12px_rgba(13,92,123,0.25)]"
+            : "bg-slate-100 text-slate-400 group-hover:bg-slate-200 group-hover:text-slate-600",
         )}
       >
         <Icon className="h-4 w-4" />
       </span>
       {!collapsed ? (
-        <span className="truncate">
-          {item.label}
-        </span>
+        <span className="truncate">{item.label}</span>
       ) : null}
     </Link>
   );

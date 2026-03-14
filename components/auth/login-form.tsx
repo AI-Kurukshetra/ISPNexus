@@ -48,7 +48,7 @@ export function LoginForm({ callbackUrl = "/dashboard" }: { callbackUrl?: string
   return (
     <form onSubmit={onSubmit} className="space-y-4">
       <div>
-        <label className="mb-1 block text-sm font-medium text-slate-700" htmlFor="email">
+        <label className="mb-1.5 block text-sm font-medium text-slate-700" htmlFor="email">
           Email
         </label>
         <input
@@ -61,15 +61,23 @@ export function LoginForm({ callbackUrl = "/dashboard" }: { callbackUrl?: string
       </div>
 
       <div>
-        <label className="mb-1 block text-sm font-medium text-slate-700" htmlFor="password">
+        <label className="mb-1.5 block text-sm font-medium text-slate-700" htmlFor="password">
           Password
         </label>
-        <input
-          id="password"
-          type="password"
-          {...register("password")}
-          className="ui-input"
-        />
+        <div className="relative">
+          <input
+            id="password"
+            type="password"
+            {...register("password")}
+            className="ui-input pr-28"
+          />
+          <Link
+            href="/forgot-password"
+            className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs font-semibold text-[#0d5c7b] hover:underline"
+          >
+            Forgot?
+          </Link>
+        </div>
         {errors.password ? (
           <p className="mt-1 text-sm text-red-600">{errors.password.message}</p>
         ) : null}
@@ -80,19 +88,17 @@ export function LoginForm({ callbackUrl = "/dashboard" }: { callbackUrl?: string
       <button
         type="submit"
         disabled={isSubmitting}
-        className="ui-button-primary w-full"
+        className="ui-button-primary w-full py-3 text-[15px]"
       >
         {isSubmitting ? "Signing in..." : "Sign in"}
       </button>
 
-      <div className="flex items-center justify-between text-sm">
-        <Link href="/forgot-password" className="font-semibold text-[var(--brand-primary)] hover:underline">
-          Forgot password?
+      <p className="text-center text-sm text-slate-500">
+        No account?{" "}
+        <Link href="/signup" className="font-semibold text-[#0d5c7b] hover:underline">
+          Create one
         </Link>
-        <Link href="/signup" className="font-semibold text-[var(--brand-primary)] hover:underline">
-          Create account
-        </Link>
-      </div>
+      </p>
     </form>
   );
 }

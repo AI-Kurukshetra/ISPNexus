@@ -1,15 +1,15 @@
-# ISPNexus — Hackathon PRD (8-Hour Sprint)
+# ISPNexus - Hackathon PRD (8-Hour Sprint)
 
 **Version:** 1.0.0-hackathon
 **Date:** March 2026
-**Duration:** 8 hours — everything must be working and demo-ready at the end
+**Duration:** 8 hours - everything must be working and demo-ready at the end
 **Goal:** A fully functional, seeded, deployable ISP management platform
 
 ---
 
 ## The One-Line Pitch
 
-> ISPNexus lets broadband ISPs manage subscribers, monitor network devices, handle fault tickets, and view live analytics — all in one modern cloud-native dashboard.
+> ISPNexus lets broadband ISPs manage subscribers, monitor network devices, handle fault tickets, and view live analytics - all in one modern cloud-native dashboard.
 
 ---
 
@@ -18,13 +18,13 @@
 At the end of 8 hours, a demo user logs in and can:
 
 1. See a live **overview dashboard** with KPI cards (subscribers, devices, active tickets, revenue)
-2. Browse and search a list of **subscribers** — click one to see their full profile, subscription, and usage
-3. Browse **network devices** — see status (online / degraded / offline), type, and metrics
-4. Open and resolve **fault tickets** — create new ones, change status, assign to users
+2. Browse and search a list of **subscribers** - click one to see their full profile, subscription, and usage
+3. Browse **network devices** - see status (online / degraded / offline), type, and metrics
+4. Open and resolve **fault tickets** - create new ones, change status, assign to users
 5. View a **monitoring page** with bandwidth and latency charts per device
 6. See an **analytics page** with charts: subscriber growth, revenue trend, ticket volume
-7. Manage **work orders** — create, assign, update status
-8. All of the above is pre-populated with realistic seed data — no empty states on demo day
+7. Manage **work orders** - create, assign, update status
+8. All of the above is pre-populated with realistic seed data - no empty states on demo day
 
 ---
 
@@ -44,7 +44,7 @@ Single user type for the hackathon: **ISP Operator (Admin)**. No multi-tenancy, 
 
 ## Pages to Build (in priority order)
 
-### P0 — Must ship (core demo path)
+### P0 - Must ship (core demo path)
 
 | # | Page | Route | Description |
 |---|------|-------|-------------|
@@ -59,14 +59,14 @@ Single user type for the hackathon: **ISP Operator (Admin)**. No multi-tenancy, 
 | 9 | Monitoring | `/monitoring` | Bandwidth + latency charts, alert feed |
 | 10 | Analytics | `/analytics` | Subscriber growth, revenue, ticket volume charts |
 
-### P1 — Build if time allows (last 90 minutes)
+### P1 - Build if time allows (last 90 minutes)
 
 | # | Page | Route | Description |
 |---|------|-------|-------------|
 | 11 | Work Orders | `/workorders` | List, create, assign, status update |
 | 12 | Inventory | `/inventory` | Asset list with status and assignment |
 
-### P2 — Skip entirely
+### P2 - Skip entirely
 
 - Customer self-service portal
 - Multi-tenancy
@@ -92,23 +92,23 @@ Single user type for the hackathon: **ISP Operator (Admin)**. No multi-tenancy, 
 
 ### 2. Dashboard (`/dashboard`)
 
-**KPI Cards — top row (4 cards):**
+**KPI Cards - top row (4 cards):**
 - Total Active Subscribers (number + % change badge)
 - Online Devices / Total Devices (fraction + health color)
 - Open Fault Tickets (number, critical count in red)
 - Monthly Revenue (MRR, formatted as $XX,XXX)
 
-**Charts — middle row:**
-- Subscriber growth line chart — last 6 months cumulative
-- Bandwidth utilization bar chart — today's avg per top 5 devices
+**Charts - middle row:**
+- Subscriber growth line chart - last 6 months cumulative
+- Bandwidth utilization bar chart - today's avg per top 5 devices
 
-**Live feeds — bottom row:**
+**Live feeds - bottom row:**
 - Recent fault tickets (last 5 rows: severity chip, title, status, time ago)
 - Recent subscriber sign-ups (last 5 rows: name, plan, time ago)
 
 ### 3. Subscribers List (`/subscribers`)
 - Searchable table (search by name or email, debounced 300ms)
-- Status filter pills: All | Active | Suspended | Terminated — counts in badge
+- Status filter pills: All | Active | Suspended | Terminated - counts in badge
 - Columns: Avatar+Name, Email, Plan, Status, Activation Date, Monthly Value
 - Click any row → `/subscribers/[id]`
 - "New Subscriber" button → modal dialog form
@@ -122,8 +122,8 @@ Single user type for the hackathon: **ISP Operator (Admin)**. No multi-tenancy, 
 - Tickets tab: table of linked fault tickets (title, severity, status, date)
 
 ### 5. Devices List (`/devices`)
-- Two view modes: Card grid (default) | Table — toggle button top-right
-- Status filter: All | Online | Degraded | Offline — with colored count badges
+- Two view modes: Card grid (default) | Table - toggle button top-right
+- Status filter: All | Online | Degraded | Offline - with colored count badges
 - Type filter: All | OLT | ONT | Router | Switch
 - Card view: device name/model, vendor, status badge, IP address, last seen
 - Table view: all above as columns + firmware version
@@ -133,7 +133,7 @@ Single user type for the hackathon: **ISP Operator (Admin)**. No multi-tenancy, 
 - Header: model, vendor, serial number, status badge, IP
 - Info grid (2 columns): type, technology, firmware, install date, location coords
 - If ONT: show assigned subscriber name (linked)
-- Metrics section: tabs for Bandwidth (down+up lines) and Latency (single line) — last 24h
+- Metrics section: tabs for Bandwidth (down+up lines) and Latency (single line) - last 24h
 - Last config backup timestamp and config version
 
 ### 7. Fault Tickets (`/tickets`)
@@ -148,40 +148,40 @@ Single user type for the hackathon: **ISP Operator (Admin)**. No multi-tenancy, 
 - Header: ticket ID (#001), title, severity badge, status badge
 - Two columns: left=details (description, device, subscriber, created date), right=actions
 - Action panel: status dropdown (Open→In Progress→Resolved→Closed), assignee select, "Save Changes" button
-- Activity log section: chronological list of events (created, status changes) — mocked timestamps from seed
+- Activity log section: chronological list of events (created, status changes) - mocked timestamps from seed
 - Comments section: list of comments + "Add Comment" textarea + submit button (persists to DB)
-- "Create Work Order" button — links ticket to new work order
+- "Create Work Order" button - links ticket to new work order
 
 ### 9. Monitoring (`/monitoring`)
 - Device selector: dropdown at top, defaults to first OLT
 - Summary metric cards: Current Download, Current Upload, Avg Latency, Packet Loss %
-- Bandwidth chart: last 24h, two lines (download/upload) — Recharts LineChart
-- Latency chart: last 24h — Recharts AreaChart
+- Bandwidth chart: last 24h, two lines (download/upload) - Recharts LineChart
+- Latency chart: last 24h - Recharts AreaChart
 - Alert Events feed: table of recent alerts for selected device (metric, value, threshold, severity, time)
 - Data refetches every 30s (`refetchInterval: 30000` in TanStack Query)
 - "Refresh" button for manual refresh
 
 ### 10. Analytics (`/analytics`)
-- Time range selector: 7 days | 30 days | 90 days | 6 months — changes all charts
-- **Chart 1:** Subscriber Growth — cumulative line chart (new subscribers per period)
-- **Chart 2:** Revenue Trend — MRR bar chart (monthly)
-- **Chart 3:** Ticket Volume — grouped bar chart by severity per week
-- **Chart 4:** Device Health — donut/pie chart (Online / Degraded / Offline counts)
-- **Chart 5:** Top 5 Subscribers by Bandwidth — horizontal bar chart
+- Time range selector: 7 days | 30 days | 90 days | 6 months - changes all charts
+- **Chart 1:** Subscriber Growth - cumulative line chart (new subscribers per period)
+- **Chart 2:** Revenue Trend - MRR bar chart (monthly)
+- **Chart 3:** Ticket Volume - grouped bar chart by severity per week
+- **Chart 4:** Device Health - donut/pie chart (Online / Degraded / Offline counts)
+- **Chart 5:** Top 5 Subscribers by Bandwidth - horizontal bar chart
 - All charts use consistent color palette defined in a single constants file
 
-### 11. Work Orders (`/workorders`) — P1
+### 11. Work Orders (`/workorders`) - P1
 - Table: ID, Title, Type, Linked Ticket, Assignee, Status, Due Date
 - Status filter: All | Pending | In Progress | Completed | Cancelled
 - "New Work Order" button → modal: title, type (Install/Repair/Upgrade/Survey), linked ticket (optional), assignee, due date
 - Status change inline via select dropdown in table row
-- Click row → expanded details panel (not a separate page — slide-out or accordion to save time)
+- Click row → expanded details panel (not a separate page - slide-out or accordion to save time)
 
-### 12. Inventory (`/inventory`) — P1
+### 12. Inventory (`/inventory`) - P1
 - Table: Item Name, Type, Serial Number, Status, Assigned To, Location
 - Status: Available | In Use | Maintenance | Retired
 - Filter by type and status
-- No create form needed — seed data only for demo
+- No create form needed - seed data only for demo
 
 ---
 
@@ -399,11 +399,11 @@ name: "Gigabit"   speedDown:1000  speedUp:500  price:99.99  tech:XGS_PON
 
 **Users (passwords all bcrypt of "Demo1234!"):**
 ```
-admin@ispnexus.demo  — "Alex Rivera"     — admin
-noc@ispnexus.demo    — "Sam Chen"        — noc
-noc2@ispnexus.demo   — "Jordan Park"     — noc
-csr@ispnexus.demo    — "Casey Williams"  — csr
-csr2@ispnexus.demo   — "Morgan Taylor"   — csr
+admin@ispnexus.demo  - "Alex Rivera"     - admin
+noc@ispnexus.demo    - "Sam Chen"        - noc
+noc2@ispnexus.demo   - "Jordan Park"     - noc
+csr@ispnexus.demo    - "Casey Williams"  - csr
+csr2@ispnexus.demo   - "Morgan Taylor"   - csr
 ```
 
 **Network Devices (20 total):**
@@ -420,9 +420,9 @@ csr2@ispnexus.demo   — "Morgan Taylor"   — csr
   - Cisco Catalyst 9300  vendor:Cisco  type:SWITCH  status:ONLINE  ip:10.0.2.1
 
 15 ONTs (customer premises):
-  - 12 ONLINE  — varied vendors (Calix 716GE, Nokia G-010S, ZTE F660)
-  - 2  DEGRADED — simulate high latency / packet loss in metrics
-  - 1  OFFLINE  — no recent metrics
+  - 12 ONLINE  - varied vendors (Calix 716GE, Nokia G-010S, ZTE F660)
+  - 2  DEGRADED - simulate high latency / packet loss in metrics
+  - 1  OFFLINE  - no recent metrics
 ```
 
 **Performance Metrics strategy:**
@@ -430,7 +430,7 @@ csr2@ispnexus.demo   — "Morgan Taylor"   — csr
 - **Last 6 hours** (for monitoring page): one row every 5 minutes = 72 points per metric per device
 - **Last 30 days** (for subscriber usage chart): one row per day (daily aggregate)
 - OLT bandwidth: 200–800 Mbps with realistic sine-wave pattern (day/night variation)
-- ONT bandwidth: 5–(plan speedDown × 0.85) Mbps — correlated to their plan
+- ONT bandwidth: 5–(plan speedDown × 0.85) Mbps - correlated to their plan
 - DEGRADED ONTs: latency 80–200 ms, packet_loss 2–8%
 - ONLINE ONTs: latency 5–25 ms, packet_loss 0–0.1%
 - OFFLINE ONT: no metrics after 3 days ago
@@ -444,14 +444,14 @@ Severity distribution:
   LOW:      5  (status: 1 OPEN, 4 RESOLVED)
 
 Example ticket titles:
-  - "OLT port saturation on Calix E7-2 — SLOT-3 at 94% capacity"
-  - "ONT offline — no signal — 42 Maple Street subscriber"
+  - "OLT port saturation on Calix E7-2 - SLOT-3 at 94% capacity"
+  - "ONT offline - no signal - 42 Maple Street subscriber"
   - "Latency spike affecting 8 downstream subscribers"
-  - "Firmware update required — EOL version on Nokia 7360"
-  - "Subscriber reports intermittent drops — Pro plan SLA breach risk"
-  - "New installation failing — ONT not registering on OLT"
-  - "Billing sync failure — 3 subscriptions not reporting usage"
-  - "Packet loss 6% on degraded ONT — SN: C7F2A19B3"
+  - "Firmware update required - EOL version on Nokia 7360"
+  - "Subscriber reports intermittent drops - Pro plan SLA breach risk"
+  - "New installation failing - ONT not registering on OLT"
+  - "Billing sync failure - 3 subscriptions not reporting usage"
+  - "Packet loss 6% on degraded ONT - SN: C7F2A19B3"
 ```
 
 **Customers (50):**
@@ -471,12 +471,12 @@ Link 10 of them to existing FaultTickets
 
 **Inventory (25 items):**
 ```
-10 ONT units (Calix 716GE)  — AVAILABLE
-5  ONT units (Nokia G-010S) — 3 IN_USE, 2 AVAILABLE
-4  SFP Transceivers          — AVAILABLE
-3  Patch cables (50m)        — AVAILABLE
-2  Fiber splice kits         — 1 AVAILABLE, 1 MAINTENANCE
-1  OTDR tester               — AVAILABLE
+10 ONT units (Calix 716GE)  - AVAILABLE
+5  ONT units (Nokia G-010S) - 3 IN_USE, 2 AVAILABLE
+4  SFP Transceivers          - AVAILABLE
+3  Patch cables (50m)        - AVAILABLE
+2  Fiber splice kits         - 1 AVAILABLE, 1 MAINTENANCE
+1  OTDR tester               - AVAILABLE
 ```
 
 **Alert Rules (10):**
@@ -517,7 +517,7 @@ To maximize speed, use these specific choices:
 
 | Need | Component |
 |------|-----------|
-| Charts | `recharts` — LineChart, BarChart, AreaChart, PieChart |
+| Charts | `recharts` - LineChart, BarChart, AreaChart, PieChart |
 | Tables | shadcn `Table` + manual state for sort/filter |
 | Modals | shadcn `Dialog` |
 | Forms | React Hook Form + shadcn `Form` + Zod |
@@ -527,7 +527,7 @@ To maximize speed, use these specific choices:
 | Status badges | Custom `StatusBadge` component wrapping shadcn `Badge` |
 | Skeleton loaders | shadcn `Skeleton` |
 | Tabs | shadcn `Tabs` |
-| Command palette | Skip — not needed for demo |
+| Command palette | Skip - not needed for demo |
 | Avatar | shadcn `Avatar` with initials fallback |
 
 ---
@@ -565,7 +565,7 @@ To maximize speed, use these specific choices:
 - [ ] Monitoring: charts load with seed data, refresh works
 - [ ] Analytics: all 4+ charts render correctly
 - [ ] No TypeScript errors (`pnpm typecheck` clean)
-- [ ] No broken nav links — all sidebar routes work
+- [ ] No broken nav links - all sidebar routes work
 - [ ] `pnpm build` succeeds (production build clean)
 - [ ] Deployed to Vercel with DATABASE_URL and NEXTAUTH_SECRET set
-- [ ] Seeded prod DB — no empty states on demo
+- [ ] Seeded prod DB - no empty states on demo

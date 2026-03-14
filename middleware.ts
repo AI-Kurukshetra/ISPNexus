@@ -1,8 +1,7 @@
+import { auth } from "@/auth";
 import { NextResponse } from "next/server";
 
-import { auth } from "@/auth";
-
-const authRoutes = ["/login", "/signup", "/forgot-password", "/reset-password"] as const;
+const authRoutes = ["/login", "/signup", "/forgot-password", "/reset-password", "/set-password"] as const;
 const protectedRoutes = [
   "/dashboard",
   "/subscribers",
@@ -13,13 +12,14 @@ const protectedRoutes = [
   "/workorders",
   "/inventory",
   "/settings",
+  "/team",
 ] as const;
 
 function matchesPath(pathname: string, route: string) {
   return pathname === route || pathname.startsWith(`${route}/`);
 }
 
-export const proxy = auth((request) => {
+export default auth((request) => {
   const { pathname, search } = request.nextUrl;
   const isAuthRoute = authRoutes.some((route) => matchesPath(pathname, route));
   const isProtectedRoute = protectedRoutes.some((route) => matchesPath(pathname, route));
@@ -44,6 +44,7 @@ export const config = {
     "/signup",
     "/forgot-password",
     "/reset-password",
+    "/set-password",
     "/dashboard/:path*",
     "/subscribers/:path*",
     "/devices/:path*",
@@ -53,5 +54,6 @@ export const config = {
     "/workorders/:path*",
     "/inventory/:path*",
     "/settings/:path*",
+    "/team/:path*",
   ],
 };

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { createPasswordResetToken } from "@/lib/auth/password-reset";
+import { sendPasswordResetEmail } from "@/lib/supabase/send-reset-email";
 import { requestResetSchema } from "@/lib/validations/auth.schema";
 import { prisma } from "@/server/db";
 
@@ -11,59 +12,51 @@ export async function POST(request: Request) {
 
     if (!parsed.success) {
       return NextResponse.json(
-        {
-          error: parsed.error.issues[0]?.message ?? "Invalid request",
-        },
+        { error: parsed.error.issues[0]?.message ?? "Invalid request" },
         { status: 400 },
       );
     }
 
     const email = parsed.data.email.toLowerCase();
 
-    const user = await prisma.user.findUnique({
-      where: {
-        email,
-      },
+    const user = await prisma.user.findUnique({ where: { email } });
+
+    // Always return the same response to prevent email enumeration.
+    const okResponse = NextResponse.json({
+      ok: true,
+      message: "If an account with that address exists, a reset link is on its way.",
     });
 
-    if (!user) {
-      return NextResponse.json({
-        ok: true,
-        message: "If this email exists, a reset link has been generated.",
-      });
-    }
+    if (!user) return okResponse;
 
-    const { token, expiresAt } = createPasswordResetToken({
+    const { token } = createPasswordResetToken({
       userId: user.id,
       passwordHash: user.passwordHash,
     });
 
     const origin =
       process.env.AUTH_URL ?? process.env.NEXTAUTH_URL ?? new URL(request.url).origin;
-    const resetPath = `/reset-password?token=${token}`;
-    const resetUrl = `${origin}${resetPath}`;
+    const resetUrl = `${origin}/reset-password?token=${token}`;
 
-    return NextResponse.json({
-      ok: true,
-      message: "Password reset link generated.",
-      resetUrl,
-      resetPath,
-      expiresAt,
-    });
+    await sendPasswordResetEmail({ email, resetUrl });
+
+    return okResponse;
   } catch (error) {
-    const message =
-      error instanceof Error
-        ? error.message
-        : "Unable to generate reset link right now. Please try again.";
-    const isSecretError = message.includes("AUTH_SECRET") || message.includes("NEXTAUTH_SECRET");
+    const message = error instanceof Error ? error.message : "Unexpected error";
+
+    const isConfigError =
+      message.includes("SUPABASE_URL") ||
+      message.includes("SUPABASE_SERVICE_ROLE_KEY") ||
+      message.includes("AUTH_SECRET") ||
+      message.includes("NEXTAUTH_SECRET");
 
     return NextResponse.json(
       {
-        error: isSecretError
-          ? "Missing auth secret. Set AUTH_SECRET (or NEXTAUTH_SECRET)."
-          : "Unable to generate reset link right now. Please try again.",
+        error: isConfigError
+          ? message
+          : "Unable to send reset email right now. Please try again.",
       },
-      { status: isSecretError ? 500 : 503 },
+      { status: isConfigError ? 500 : 503 },
     );
   }
 }

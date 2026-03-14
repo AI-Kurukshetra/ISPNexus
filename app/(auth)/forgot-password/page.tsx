@@ -6,18 +6,15 @@ export const metadata = {
 
 export default function ForgotPasswordPage() {
   return (
-    <main className="auth-shell">
-      <section className="auth-panel">
-        <p className="ui-eyebrow">ISPNexus</p>
-        <h1 className="mt-3 text-3xl font-semibold text-slate-950">Forgot Password</h1>
-        <p className="ui-copy mt-2 text-sm leading-6">
-          Generate a secure reset link and get the operator console back under control.
+    <>
+      <div className="mb-8">
+        <h1 className="text-2xl font-bold tracking-tight text-slate-900">Forgot Password?</h1>
+        <p className="mt-1.5 text-sm text-slate-500">
+          Enter your email and we&apos;ll generate a secure reset link.
         </p>
-
-        <div className="mt-6">
-          <ForgotPasswordForm />
-        </div>
-      </section>
-    </main>
+      </div>
+      <hr className="mb-8 border-slate-100" />
+      <ForgotPasswordForm />
+    </>
   );
 }

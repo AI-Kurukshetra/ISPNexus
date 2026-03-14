@@ -6,6 +6,7 @@ import { monitoringRouter } from "@/server/trpc/routers/monitoring";
 import { settingsRouter } from "@/server/trpc/routers/settings";
 import { subscribersRouter } from "@/server/trpc/routers/subscribers";
 import { ticketsRouter } from "@/server/trpc/routers/tickets";
+import { usersRouter } from "@/server/trpc/routers/users";
 import { workordersRouter } from "@/server/trpc/routers/workorders";
 import { createTRPCRouter } from "@/server/trpc/trpc";
 
@@ -18,6 +19,7 @@ export const appRouter = createTRPCRouter({
   settings: settingsRouter,
   subscribers: subscribersRouter,
   tickets: ticketsRouter,
+  users: usersRouter,
   workorders: workordersRouter,
 });
 

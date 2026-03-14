@@ -1,4 +1,4 @@
-# ISPNexus — Technical Architecture (8-Hour Hackathon)
+# ISPNexus - Technical Architecture (8-Hour Hackathon)
 
 **Version:** 1.0.0-hackathon
 **Date:** March 2026
@@ -41,7 +41,7 @@
 | Components | shadcn/ui + Radix UI | Add components via CLI |
 | Charts | Recharts | Works with shadcn theming |
 | Forms | React Hook Form v7 + Zod v3 | zodResolver for validation |
-| Animations | Framer Motion v11 | Use sparingly — layout + fade only |
+| Animations | Framer Motion v11 | Use sparingly - layout + fade only |
 | Icons | lucide-react | Already in shadcn |
 | State | Zustand v4 | Only for sidebar collapse state |
 | Dates | date-fns | formatDistanceToNow, format |
@@ -101,7 +101,7 @@ pnpm prisma init
 cp .env.example .env.local
 ```
 
-**`tsconfig.json` — ensure strict mode:**
+**`tsconfig.json` - ensure strict mode:**
 ```json
 {
   "compilerOptions": {
@@ -457,7 +457,7 @@ if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
 
 ## 5. Seed Script (Hour 0.5–1)
 
-Full implementation for `prisma/seed.ts`. This is the most important file — get it right first.
+Full implementation for `prisma/seed.ts`. This is the most important file - get it right first.
 
 ```typescript
 import { PrismaClient } from '@prisma/client'
@@ -551,33 +551,33 @@ const CUSTOMERS = [
 ]
 
 const TICKET_TEMPLATES = [
-  { title: 'OLT port saturation on Calix E7-2 — SLOT-3 at 94% capacity', severity: 'CRITICAL', description: 'Port utilization on SLOT-3 has exceeded 90% threshold for the past 2 hours. Downstream subscribers experiencing throughput degradation. Immediate capacity review required.' },
-  { title: 'ONT offline — no signal — 42 Maple Street subscriber', severity: 'CRITICAL', description: 'Subscriber ONT at 42 Maple Street has been offline for 45 minutes. No OLT registration. Possible fiber cut or power failure at CPE.' },
+  { title: 'OLT port saturation on Calix E7-2 - SLOT-3 at 94% capacity', severity: 'CRITICAL', description: 'Port utilization on SLOT-3 has exceeded 90% threshold for the past 2 hours. Downstream subscribers experiencing throughput degradation. Immediate capacity review required.' },
+  { title: 'ONT offline - no signal - 42 Maple Street subscriber', severity: 'CRITICAL', description: 'Subscriber ONT at 42 Maple Street has been offline for 45 minutes. No OLT registration. Possible fiber cut or power failure at CPE.' },
   { title: 'Latency spike affecting 8 downstream subscribers', severity: 'CRITICAL', description: 'Average latency increased from 8ms to 180ms on the north distribution segment. Affecting 8 Pro and Gigabit plan subscribers. Possible upstream router issue.' },
-  { title: 'Nokia 7360 OLT — card fault alarm on XGS-PON line card 3', severity: 'CRITICAL', description: 'Hardware fault alarm triggered on XGS-PON line card in slot 3. Card may need replacement. 23 ONTs at risk.' },
+  { title: 'Nokia 7360 OLT - card fault alarm on XGS-PON line card 3', severity: 'CRITICAL', description: 'Hardware fault alarm triggered on XGS-PON line card in slot 3. Card may need replacement. 23 ONTs at risk.' },
   { title: 'Backbone router memory utilization at 91%', severity: 'CRITICAL', description: 'Cisco ASR1001 memory utilization has been above 85% for 3 hours. Performance degradation imminent. Requires immediate process audit.' },
-  { title: 'Firmware EOL on Nokia 7360 — security patch required', severity: 'HIGH', description: 'Nokia 7360 is running firmware v7.2.1 which reached end-of-life 60 days ago. Security patch v8.1.0 available. Maintenance window required for upgrade.' },
-  { title: 'Subscriber SLA breach risk — Pro plan latency SLA at limit', severity: 'HIGH', description: 'Three Pro plan subscribers near SLA latency threshold (25ms). Current average 22ms. Potential SLA credit liability if not remediated.' },
-  { title: 'Packet loss 6% on degraded ONT — SN: C7F2A19B3', severity: 'HIGH', description: 'ONT serial C7F2A19B3 showing consistent 6% packet loss for 90 minutes. Subscriber reports video call drops. Possible dirty optical connector or fiber micro-bend.' },
-  { title: 'New installation failing — ONT not registering on OLT', severity: 'HIGH', description: 'New subscriber installation at 88 Ridgeview Blvd unable to complete. ONT not authenticating on OLT. Tech on-site reports fiber continuity confirmed. Possible auth config issue.' },
-  { title: 'DHCP pool exhaustion warning — 89% utilization', severity: 'HIGH', description: 'Primary DHCP pool for residential subscribers at 89% capacity. Estimated exhaustion in 48 hours at current growth rate.' },
-  { title: 'Billing sync failure — 3 subscriptions not reporting usage', severity: 'HIGH', description: '3 subscriber accounts not sending usage data to billing system for the past 24 hours. Revenue impact risk. Subscription IDs flagged for investigation.' },
-  { title: 'ONT power cycle loop detected — 17 Pine Ave', severity: 'HIGH', description: 'ONT at 17 Pine Ave rebooting every 15-20 minutes. Subscriber connection repeatedly dropping. Likely power supply degradation on CPE.' },
-  { title: 'Scheduled maintenance — Juniper MX104 config backup overdue', severity: 'MEDIUM', description: 'Automated config backup for Juniper MX104 has failed for the past 5 days. Manual backup required before next maintenance window.' },
-  { title: 'Upstream bandwidth utilization trending high — 78% at peak', severity: 'MEDIUM', description: 'Peak hour upstream utilization reached 78% this evening. Above 80% threshold alert expected within 2 weeks if growth continues.' },
-  { title: 'ONT firmware batch update required — 8 devices on v3.1.2', severity: 'MEDIUM', description: '8 ONT devices still running firmware v3.1.2. Current recommended version is v3.4.0. Update addresses stability improvements.' },
+  { title: 'Firmware EOL on Nokia 7360 - security patch required', severity: 'HIGH', description: 'Nokia 7360 is running firmware v7.2.1 which reached end-of-life 60 days ago. Security patch v8.1.0 available. Maintenance window required for upgrade.' },
+  { title: 'Subscriber SLA breach risk - Pro plan latency SLA at limit', severity: 'HIGH', description: 'Three Pro plan subscribers near SLA latency threshold (25ms). Current average 22ms. Potential SLA credit liability if not remediated.' },
+  { title: 'Packet loss 6% on degraded ONT - SN: C7F2A19B3', severity: 'HIGH', description: 'ONT serial C7F2A19B3 showing consistent 6% packet loss for 90 minutes. Subscriber reports video call drops. Possible dirty optical connector or fiber micro-bend.' },
+  { title: 'New installation failing - ONT not registering on OLT', severity: 'HIGH', description: 'New subscriber installation at 88 Ridgeview Blvd unable to complete. ONT not authenticating on OLT. Tech on-site reports fiber continuity confirmed. Possible auth config issue.' },
+  { title: 'DHCP pool exhaustion warning - 89% utilization', severity: 'HIGH', description: 'Primary DHCP pool for residential subscribers at 89% capacity. Estimated exhaustion in 48 hours at current growth rate.' },
+  { title: 'Billing sync failure - 3 subscriptions not reporting usage', severity: 'HIGH', description: '3 subscriber accounts not sending usage data to billing system for the past 24 hours. Revenue impact risk. Subscription IDs flagged for investigation.' },
+  { title: 'ONT power cycle loop detected - 17 Pine Ave', severity: 'HIGH', description: 'ONT at 17 Pine Ave rebooting every 15-20 minutes. Subscriber connection repeatedly dropping. Likely power supply degradation on CPE.' },
+  { title: 'Scheduled maintenance - Juniper MX104 config backup overdue', severity: 'MEDIUM', description: 'Automated config backup for Juniper MX104 has failed for the past 5 days. Manual backup required before next maintenance window.' },
+  { title: 'Upstream bandwidth utilization trending high - 78% at peak', severity: 'MEDIUM', description: 'Peak hour upstream utilization reached 78% this evening. Above 80% threshold alert expected within 2 weeks if growth continues.' },
+  { title: 'ONT firmware batch update required - 8 devices on v3.1.2', severity: 'MEDIUM', description: '8 ONT devices still running firmware v3.1.2. Current recommended version is v3.4.0. Update addresses stability improvements.' },
   { title: 'Subscriber bandwidth test shows 40% below advertised speed', severity: 'MEDIUM', description: 'Standard plan subscriber reporting speeds of 60Mbps vs advertised 100Mbps. Speed test via ISPNexus confirms. Investigation needed.' },
-  { title: 'Switch CPU at 72% — investigate spanning tree convergence', severity: 'MEDIUM', description: 'Cisco Catalyst 9300 CPU utilization elevated. Spanning tree logs show frequent topology changes. May indicate loop or misconfigured port.' },
-  { title: 'Optical power level low on ONT — SN: A1B2C3D4E5', severity: 'MEDIUM', description: 'Receive optical power -28dBm, approaching sensitivity threshold of -30dBm. Fiber connection inspection recommended.' },
+  { title: 'Switch CPU at 72% - investigate spanning tree convergence', severity: 'MEDIUM', description: 'Cisco Catalyst 9300 CPU utilization elevated. Spanning tree logs show frequent topology changes. May indicate loop or misconfigured port.' },
+  { title: 'Optical power level low on ONT - SN: A1B2C3D4E5', severity: 'MEDIUM', description: 'Receive optical power -28dBm, approaching sensitivity threshold of -30dBm. Fiber connection inspection recommended.' },
   { title: 'Customer report: sporadic drops between 6–9 PM daily', severity: 'MEDIUM', description: 'Subscriber at 204 Oak Lane reports daily connection interruptions during peak hours. Usage data review needed to correlate with network congestion.' },
-  { title: 'Work order overdue — installation at 56 Birch Road', severity: 'MEDIUM', description: 'Field technician work order for new installation at 56 Birch Road is 2 days past due date. Subscriber has not been contacted.' },
-  { title: 'Alert rule threshold calibration needed — false positives', severity: 'MEDIUM', description: 'Latency alert rule triggering 40+ times per day with actual latency readings of 21-23ms vs threshold of 20ms. Threshold needs adjustment.' },
-  { title: 'Inventory count discrepancy — 3 ONTs unaccounted', severity: 'MEDIUM', description: 'Physical count of ONT inventory does not match system records. 3 units showing as AVAILABLE in system but not found in warehouse.' },
-  { title: 'ONT reboot detected — possible power flicker at site', severity: 'LOW', description: 'ONT at 78 Elm Street rebooted once at 3:42 AM. Likely power fluctuation. No ongoing issues detected. Monitoring for recurrence.' },
-  { title: 'Documentation update required — network diagram outdated', severity: 'LOW', description: 'Current network topology diagram does not reflect 4 ONT installations from last month. NOC team requires updated documentation.' },
+  { title: 'Work order overdue - installation at 56 Birch Road', severity: 'MEDIUM', description: 'Field technician work order for new installation at 56 Birch Road is 2 days past due date. Subscriber has not been contacted.' },
+  { title: 'Alert rule threshold calibration needed - false positives', severity: 'MEDIUM', description: 'Latency alert rule triggering 40+ times per day with actual latency readings of 21-23ms vs threshold of 20ms. Threshold needs adjustment.' },
+  { title: 'Inventory count discrepancy - 3 ONTs unaccounted', severity: 'MEDIUM', description: 'Physical count of ONT inventory does not match system records. 3 units showing as AVAILABLE in system but not found in warehouse.' },
+  { title: 'ONT reboot detected - possible power flicker at site', severity: 'LOW', description: 'ONT at 78 Elm Street rebooted once at 3:42 AM. Likely power fluctuation. No ongoing issues detected. Monitoring for recurrence.' },
+  { title: 'Documentation update required - network diagram outdated', severity: 'LOW', description: 'Current network topology diagram does not reflect 4 ONT installations from last month. NOC team requires updated documentation.' },
   { title: 'Subscriber requested speed tier downgrade', severity: 'LOW', description: 'Subscriber at 112 Walnut Ave requested downgrade from Pro (500M) to Standard (100M) plan. Requires provisioning change and billing update.' },
-  { title: 'Alert acknowledgement backlog — 12 low severity events', severity: 'LOW', description: '12 low-severity alert events remain unacknowledged from the past 48 hours. Team to review and acknowledge or escalate.' },
-  { title: 'Fiber splice enclosure inspection overdue — scheduled Q1', severity: 'LOW', description: 'Quarterly inspection of outdoor fiber splice enclosures on the north segment is overdue. Schedule field visit.' },
+  { title: 'Alert acknowledgement backlog - 12 low severity events', severity: 'LOW', description: '12 low-severity alert events remain unacknowledged from the past 48 hours. Team to review and acknowledge or escalate.' },
+  { title: 'Fiber splice enclosure inspection overdue - scheduled Q1', severity: 'LOW', description: 'Quarterly inspection of outdoor fiber splice enclosures on the north segment is overdue. Schedule field visit.' },
 ]
 
 async function main() {
@@ -872,7 +872,7 @@ async function main() {
     'Fix applied. Monitoring for the next 30 minutes before closing.',
     'Confirmed with subscriber that service is restored. Closing ticket.',
     'Work order created and assigned to field team for physical inspection.',
-    'Optical power levels checked — within acceptable range at -24dBm.',
+    'Optical power levels checked - within acceptable range at -24dBm.',
     'Upstream provider notified. Waiting on their confirmation.',
   ]
 
@@ -901,14 +901,14 @@ async function main() {
                       'COMPLETED', 'COMPLETED', 'COMPLETED', 'COMPLETED', 'COMPLETED', 'COMPLETED',
                       'CANCELLED']
   const woTitles = [
-    'New fiber installation — 12 Birch Lane', 'ONT installation — 88 Ridgeview Blvd',
-    'Service activation — 204 Oak Lane', 'New business installation — 500 Commerce Dr',
-    'Residential install — 34 Willow Court', 'Install — 67 Cedar Boulevard',
-    'ONT replacement — signal degraded — 42 Maple St', 'Fiber repair — suspected cut near node 3',
-    'ONT power supply replacement — 17 Pine Ave', 'Optical connector cleaning — cabinet B7',
-    'Emergency repair — OLT port card fault', 'Firmware upgrade — batch ONT update v3.4.0',
-    'Router software upgrade — Juniper MX104 Junos 23.4', 'OLT capacity upgrade — add line card SLOT-4',
-    'Network survey — north quadrant expansion planning',
+    'New fiber installation - 12 Birch Lane', 'ONT installation - 88 Ridgeview Blvd',
+    'Service activation - 204 Oak Lane', 'New business installation - 500 Commerce Dr',
+    'Residential install - 34 Willow Court', 'Install - 67 Cedar Boulevard',
+    'ONT replacement - signal degraded - 42 Maple St', 'Fiber repair - suspected cut near node 3',
+    'ONT power supply replacement - 17 Pine Ave', 'Optical connector cleaning - cabinet B7',
+    'Emergency repair - OLT port card fault', 'Firmware upgrade - batch ONT update v3.4.0',
+    'Router software upgrade - Juniper MX104 Junos 23.4', 'OLT capacity upgrade - add line card SLOT-4',
+    'Network survey - north quadrant expansion planning',
   ]
 
   const resolvedTickets = createdTickets.filter(t => t.status !== 'OPEN')
@@ -1295,7 +1295,7 @@ export const CHART_COLORS = {
 ### Pattern for every RSC page
 
 ```typescript
-// Always this shape — RSC fetches, passes to client component
+// Always this shape - RSC fetches, passes to client component
 import { Suspense } from 'react'
 import { api } from '@/server/trpc/server' // server-side caller
 
@@ -1332,7 +1332,7 @@ export const api = async () => {
 
 ## 10. tRPC Routers Reference
 
-Implement each router in `server/trpc/routers/`. Keep procedures thin — logic in the query, no separate service layer needed for hackathon.
+Implement each router in `server/trpc/routers/`. Keep procedures thin - logic in the query, no separate service layer needed for hackathon.
 
 ### `dashboard.ts`
 ```
@@ -1434,7 +1434,7 @@ export async function updateTicketStatus(formData: FormData) {
 }
 ```
 
-**Prefer tRPC mutations** (`.useMutation()`) for forms in client components — they integrate better with TanStack Query cache invalidation.
+**Prefer tRPC mutations** (`.useMutation()`) for forms in client components - they integrate better with TanStack Query cache invalidation.
 
 ---
 
@@ -1499,15 +1499,15 @@ export function DeviceHealthChart({ online, degraded, offline }: { online: numbe
 ### `.env.local`
 
 ```bash
-# PostgreSQL — use Neon free tier
+# PostgreSQL - use Neon free tier
 DATABASE_URL="postgresql://user:password@host/ispnexus?sslmode=require&pgbouncer=true"
 DIRECT_URL="postgresql://user:password@host/ispnexus?sslmode=require"
 
-# NextAuth — generate with: openssl rand -base64 32
+# NextAuth - generate with: openssl rand -base64 32
 NEXTAUTH_URL="http://localhost:3000"
 NEXTAUTH_SECRET="your-secret-here"
 
-# For production on Vercel — NEXTAUTH_URL not needed (auto-detected)
+# For production on Vercel - NEXTAUTH_URL not needed (auto-detected)
 ```
 
 ### Neon setup (free, no credit card):

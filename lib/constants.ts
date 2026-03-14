@@ -7,6 +7,7 @@ import {
   Network,
   Settings,
   Ticket,
+  Users,
   UserRound,
   Wrench,
 } from "lucide-react";
@@ -26,6 +27,7 @@ export const primaryNavItems: NavItem[] = [
   { label: "Analytics", href: "/analytics", icon: BarChart3 },
   { label: "Work Orders", href: "/workorders", icon: Wrench },
   { label: "Inventory", href: "/inventory", icon: Boxes },
+  { label: "Team", href: "/team", icon: Users },
 ];
 
 export const settingsNavItem: NavItem = {

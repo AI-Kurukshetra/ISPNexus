@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: var(--font-inter), "Inter", system-ui, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Code", "Source Code Pro", monospace;
+}
+
 :root {
   --background: #edf4f7;
   --background-deep: #d9e7ee;
@@ -27,6 +32,7 @@
 
 html {
   color-scheme: light;
+  overflow-x: hidden;
 }
 
 body {
@@ -39,7 +45,7 @@ body {
     radial-gradient(circle at 50% 100%, rgba(13, 92, 123, 0.07), transparent 30%),
     linear-gradient(180deg, #f5fafc 0%, var(--background) 46%, #eef3f6 100%);
   color: var(--foreground);
-  font-family: "Avenir Next", "Nunito Sans", "Segoe UI", sans-serif;
+  font-family: var(--font-inter), "Inter", system-ui, sans-serif;
   text-rendering: optimizeLegibility;
 }
 
@@ -62,7 +68,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Sora", "Avenir Next Condensed", "Trebuchet MS", sans-serif;
+  font-family: var(--font-inter), "Inter", system-ui, sans-serif;
   letter-spacing: -0.03em;
 }
 
@@ -102,56 +108,40 @@ textarea {
 
 @layer components {
   .ui-content {
-    @apply mx-auto w-full max-w-[1500px];
+    @apply mx-auto w-full max-w-375;
   }
 
   .ui-card {
-    @apply rounded-[24px] border p-5;
-    border-color: var(--line-soft);
-    background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(246, 250, 252, 0.92)),
-      var(--surface-strong);
-    box-shadow: var(--shadow-soft);
-    backdrop-filter: blur(16px);
+    @apply rounded-2xl border p-5;
+    border-color: rgba(16, 32, 51, 0.07);
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(10, 32, 51, 0.05), 0 4px 16px rgba(10, 32, 51, 0.04);
     animation: rise-in 0.45s ease-out both;
   }
 
   .ui-card-muted {
-    @apply rounded-[24px] border p-5;
-    border-color: rgba(13, 92, 123, 0.12);
-    background:
-      linear-gradient(160deg, rgba(13, 92, 123, 0.08), rgba(255, 255, 255, 0.98) 55%),
-      var(--surface-strong);
-    box-shadow: var(--shadow-soft);
+    @apply rounded-2xl border p-5;
+    border-color: rgba(13, 92, 123, 0.10);
+    background: linear-gradient(135deg, rgba(13, 92, 123, 0.05) 0%, #ffffff 50%);
+    box-shadow: 0 1px 3px rgba(10, 32, 51, 0.05), 0 4px 16px rgba(10, 32, 51, 0.04);
   }
 
   .ui-card-empty {
-    @apply rounded-[24px] border p-6 text-sm;
+    @apply rounded-2xl border p-6 text-sm;
     border-color: rgba(16, 32, 51, 0.08);
-    background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(245, 249, 251, 0.96)),
-      var(--surface);
+    background: #ffffff;
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
   }
 
   .ui-panel {
-    @apply relative overflow-hidden rounded-[28px] border p-6 sm:p-7;
-    border-color: rgba(13, 92, 123, 0.12);
-    background:
-      radial-gradient(circle at top right, rgba(240, 138, 36, 0.18), transparent 24%),
-      linear-gradient(140deg, rgba(13, 92, 123, 0.11), rgba(255, 255, 255, 0.98) 52%);
-    box-shadow: var(--shadow-lifted);
+    @apply relative overflow-hidden rounded-2xl border p-6 sm:p-7;
+    border-color: rgba(13, 92, 123, 0.10);
+    background: linear-gradient(135deg, rgba(13, 92, 123, 0.06) 0%, #ffffff 45%);
+    box-shadow: 0 1px 3px rgba(10, 32, 51, 0.05), 0 8px 32px rgba(10, 32, 51, 0.06);
   }
 
   .ui-panel::after {
-    content: "";
-    position: absolute;
-    inset: auto -60px -80px auto;
-    height: 180px;
-    width: 180px;
-    border-radius: 999px;
-    background: radial-gradient(circle, rgba(13, 92, 123, 0.13), transparent 72%);
-    pointer-events: none;
+    content: none;
   }
 
   .ui-eyebrow {
@@ -248,12 +238,10 @@ textarea {
   }
 
   .ui-table-shell {
-    @apply overflow-hidden rounded-[26px] border;
-    border-color: var(--line-soft);
-    background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(247, 250, 252, 0.92)),
-      var(--surface-strong);
-    box-shadow: var(--shadow-soft);
+    @apply overflow-hidden rounded-2xl border;
+    border-color: rgba(16, 32, 51, 0.07);
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(10, 32, 51, 0.05), 0 4px 16px rgba(10, 32, 51, 0.04);
   }
 
   .ui-table {
@@ -261,9 +249,7 @@ textarea {
   }
 
   .ui-table thead {
-    background:
-      linear-gradient(180deg, rgba(13, 92, 123, 0.08), rgba(255, 255, 255, 0.8)),
-      white;
+    background: #f8fafc;
   }
 
   .ui-table thead th {
@@ -285,29 +271,15 @@ textarea {
   }
 
   .auth-shell {
-    @apply relative flex min-h-screen items-center justify-center px-6 py-12;
+    @apply relative flex min-h-screen items-center justify-center bg-white px-6 py-12;
   }
 
   .auth-panel {
-    @apply relative w-full max-w-md overflow-hidden rounded-[30px] border p-8 sm:p-9;
-    border-color: rgba(16, 32, 51, 0.1);
-    background:
-      radial-gradient(circle at top right, rgba(240, 138, 36, 0.16), transparent 26%),
-      linear-gradient(165deg, rgba(13, 92, 123, 0.1), rgba(255, 255, 255, 0.97) 44%),
-      rgba(255, 255, 255, 0.9);
-    box-shadow: var(--shadow-lifted);
-    backdrop-filter: blur(18px);
+    @apply w-full max-w-sm;
   }
 
   .auth-panel::before {
-    content: "";
-    position: absolute;
-    inset: -70px auto auto -70px;
-    height: 180px;
-    width: 180px;
-    border-radius: 999px;
-    background: radial-gradient(circle, rgba(13, 92, 123, 0.16), transparent 70%);
-    pointer-events: none;
+    content: none;
   }
 }
 

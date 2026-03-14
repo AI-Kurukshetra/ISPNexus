@@ -6,18 +6,15 @@ export const metadata = {
 
 export default function SignupPage() {
   return (
-    <main className="auth-shell">
-      <section className="auth-panel">
-        <p className="ui-eyebrow">ISPNexus</p>
-        <h1 className="mt-3 text-3xl font-semibold text-slate-950">Create Account</h1>
-        <p className="ui-copy mt-2 text-sm leading-6">
-          Set up an operator profile and step directly into the command workspace.
+    <>
+      <div className="mb-8">
+        <h1 className="text-2xl font-bold tracking-tight text-slate-900">Get Started</h1>
+        <p className="mt-1.5 text-sm text-slate-500">
+          Create your operator account and step into the command console.
         </p>
-
-        <div className="mt-6">
-          <SignupForm />
-        </div>
-      </section>
-    </main>
+      </div>
+      <hr className="mb-8 border-slate-100" />
+      <SignupForm />
+    </>
   );
 }

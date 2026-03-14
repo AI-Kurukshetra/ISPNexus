@@ -11,39 +11,53 @@ type Subscriber = {
   createdAt: Date;
 };
 
+function getInitials(name: string) {
+  return name
+    .split(" ")
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((p) => p[0]?.toUpperCase() ?? "")
+    .join("");
+}
+
 export function RecentSubscribersFeed({ subscribers }: { subscribers: Subscriber[] }) {
   return (
-    <section className="ui-card">
-      <div className="mb-4 flex items-center justify-between gap-3">
+    <article className="ui-card">
+      <div className="mb-5 flex items-start justify-between gap-3">
         <div>
           <p className="ui-eyebrow">Growth Desk</p>
-          <h3 className="mt-2 text-lg font-semibold text-slate-950">Recent Subscriber Sign-ups</h3>
+          <h3 className="mt-2 text-base font-semibold text-slate-900">Recent Subscribers</h3>
         </div>
-        <span className="ui-pill">{subscribers.length} new records</span>
+        <Link href="/subscribers" className="mt-1 text-xs font-medium text-[#0d5c7b] hover:underline">
+          View all →
+        </Link>
       </div>
-      <div className="ui-data-list">
+      <div className="space-y-2">
         {subscribers.length === 0 ? (
-          <p className="text-sm text-slate-500">No recent subscriber activity yet.</p>
+          <p className="rounded-xl bg-slate-50 px-4 py-6 text-center text-sm text-slate-400">
+            No recent sign-ups
+          </p>
         ) : (
           subscribers.map((subscriber) => (
             <div
               key={subscriber.id}
-              className="flex items-start justify-between gap-4 rounded-[20px] border border-white/70 bg-white/72 px-4 py-3 shadow-[0_12px_24px_rgba(10,32,51,0.05)]"
+              className="flex items-center gap-3 rounded-xl border border-slate-100 bg-slate-50/60 px-4 py-3 transition hover:bg-slate-50"
             >
-              <div className="min-w-0">
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#0d5c7b] to-[#093a53] text-[11px] font-bold text-white">
+                {getInitials(subscriber.fullName)}
+              </div>
+              <div className="min-w-0 flex-1">
                 <Link
                   href={`/subscribers/${subscriber.id}`}
-                  className="text-sm font-semibold text-slate-950 transition hover:text-[var(--brand-primary)]"
+                  className="block truncate text-sm font-semibold text-slate-800 transition hover:text-[#0d5c7b]"
                 >
                   {subscriber.fullName}
                 </Link>
-                <p className="mt-1 truncate text-xs text-slate-500">{subscriber.email}</p>
+                <p className="truncate text-xs text-slate-400">{subscriber.email}</p>
               </div>
-              <div className="text-right">
-                <div className="mb-2 flex justify-end">
-                  <StatusBadge value={subscriber.status} />
-                </div>
-                <p className="text-xs font-medium text-slate-500">
+              <div className="flex shrink-0 flex-col items-end gap-1.5">
+                <StatusBadge value={subscriber.status} />
+                <p className="text-[11px] text-slate-400">
                   {formatDistanceToNow(new Date(subscriber.createdAt), { addSuffix: true })}
                 </p>
               </div>
@@ -51,6 +65,6 @@ export function RecentSubscribersFeed({ subscribers }: { subscribers: Subscriber
           ))
         )}
       </div>
-    </section>
+    </article>
   );
 }

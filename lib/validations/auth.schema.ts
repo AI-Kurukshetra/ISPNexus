@@ -29,6 +29,12 @@ export const requestResetSchema = z.object({
   email: z.string().email("Provide a valid email"),
 });
 
+export const inviteUserSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Provide a valid email"),
+  role: z.enum(["admin", "noc", "csr"]),
+});
+
 export const resetPasswordSchema = z.object({
   token: z.string().min(20, "Invalid reset token"),
   password: z

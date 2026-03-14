@@ -130,7 +130,7 @@ async function main() {
 
   const ticket = await prisma.faultTicket.create({
     data: {
-      title: "OLT port saturation on Calix E7-2 — SLOT-3 at 94% capacity",
+      title: "OLT port saturation on Calix E7-2 - SLOT-3 at 94% capacity",
       description:
         "Port utilization on SLOT-3 has exceeded 90% threshold for the past 2 hours.",
       severity: "CRITICAL",

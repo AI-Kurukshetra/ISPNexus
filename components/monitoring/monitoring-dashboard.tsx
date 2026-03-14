@@ -22,7 +22,7 @@ function formatNumber(value: number, suffix: string) {
 
 function formatMetric(value: number | null | undefined, suffix: string) {
   if (value === null || value === undefined) {
-    return "—";
+    return "-";
   }
 
   return formatNumber(value, suffix);

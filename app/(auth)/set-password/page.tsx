@@ -1,10 +1,10 @@
 import { ResetPasswordForm } from "@/components/auth/reset-password-form";
 
 export const metadata = {
-  title: "Reset Password | ISPNexus",
+  title: "Set Password | ISPNexus",
 };
 
-export default async function ResetPasswordPage({
+export default async function SetPasswordPage({
   searchParams,
 }: {
   searchParams: Promise<{ token?: string }>;
@@ -14,9 +14,11 @@ export default async function ResetPasswordPage({
   return (
     <>
       <div className="mb-8">
-        <h1 className="text-2xl font-bold tracking-tight text-slate-900">Reset Password</h1>
+        <h1 className="text-2xl font-bold tracking-tight text-slate-900">
+          Set up your account
+        </h1>
         <p className="mt-1.5 text-sm text-slate-500">
-          Choose a new password for your operator account.
+          Create a password to activate your ISPNexus operator account.
         </p>
       </div>
       <hr className="mb-8 border-slate-100" />
