@@ -1,0 +1,48 @@
+# CHANGELOG
+
+## 2026-03-14
+- Bootstrapped Next.js App Router project in repository root.
+- Added Prisma schema for core ISP entities and a functional seed script.
+- Pinned Prisma to v5 for compatibility with `schema.prisma` datasource configuration.
+- Implemented NextAuth credentials login using Prisma user records.
+- Wired tRPC server/client and added dashboard KPI endpoint.
+- Added protected dashboard shell, navigation, login form, and dashboard KPI UI.
+- Added route scaffolds for subscribers, devices, tickets, monitoring, analytics, and work orders.
+- Switched request guard from `middleware.ts` to `proxy.ts` for Next.js 16 compatibility.
+- Updated production build script to `next build --webpack` for reliable local/sandbox execution.
+- Implemented `subscribers` tRPC router (`list`, `byId`) with search/filter counts and detailed profile payload.
+- Replaced `/subscribers` and `/subscribers/[id]` placeholders with real UI and data wiring.
+- Added reusable `StatusBadge` and `SeverityBadge` shared components.
+- Implemented `devices` tRPC router (`list`, `byId`) with status/type filtering and telemetry shaping.
+- Replaced `/devices` and `/devices/[id]` placeholders with real list/detail UIs.
+- Added card/table switch for devices list and metrics tabs/charts for device detail.
+- Reworked route auth enforcement into `proxy.ts` (middleware path guards + auth-route redirects).
+- Added auth API endpoints for sign up and password reset request/reset workflows.
+- Added new auth pages/components: `/signup`, `/forgot-password`, `/reset-password`, plus improved `/login` linking and callback handling.
+- Implemented `tickets` tRPC router (`list`, `formOptions`, `byId`, `create`, `update`, `addComment`).
+- Replaced `/tickets` and `/tickets/[id]` placeholders with full list/detail experience and mutations.
+- Hardened password reset routes with graceful error responses and no-crash behavior on DB/secret issues.
+- Updated reset token signing to accept `AUTH_SECRET` or `NEXTAUTH_SECRET`.
+- Switched forgot-password demo link handling to use app-local reset path and safe client JSON parsing.
+- Added `monitoring` tRPC router (`devices`, `metrics`) for telemetry summary, charts, and alert feed data.
+- Added `analytics` tRPC router (`dashboard`) for subscriber growth, revenue trend, ticket volume, device health, and top subscribers.
+- Replaced `/monitoring` and `/analytics` placeholders with full chart dashboards and range/device controls.
+- Added test tooling and configs: Vitest (`vitest.config.ts`) and Playwright (`playwright.config.ts`) with new npm scripts.
+- Added unit tests for password reset helpers and auth schemas.
+- Added Playwright auth smoke tests for login and forgot-password routes.
+- Fixed Next.js server/client serialization error in sidebar navigation by making `components/layout/app-sidebar.tsx` a client component.
+- Added `workorders` tRPC router (`list`, `formOptions`, `create`, `updateStatus`) and full `/workorders` UI flow.
+- Added `inventory` tRPC router (`list`) and `/inventory` filtered read-only table.
+- Added `settings` tRPC router (`profile`) and `/settings` profile + API key preview page.
+- Extended nav/proxy coverage for `/inventory` and `/settings`.
+- Updated seed script to include work orders, inventory assets, packet-loss metrics, and baseline alert rule/events.
+- Added shared role helpers and server-side tRPC role enforcement for Admin-only subscriber management and Admin/NOC-only ticket/work-order mutations.
+- Added Sonner toasts, global tRPC error handling, 8-hour auth session max age, collapsible sidebar state usage, and avatar menu sign-out/profile actions.
+- Upgraded dashboard payload/UI with recent subscriber feed, growth/utilization charts, clickable activity feeds, and role-specific focus copy.
+- Added subscriber creation flow, sorting/empty states, status transition confirmations, and subscriber-to-ticket escalation shortcut.
+- Upgraded ticket detail with role-aware action panel, linked work-order list, create-work-order flow, synthetic activity logging, and close-ticket confirmation.
+- Upgraded work-orders page with assignee/type filters, CSR read-only mode, and toast-backed create/update flows.
+- Updated monitoring summaries to handle empty metrics cleanly and show alert acknowledgement state.
+- Added documented demo users `noc2@ispnexus.demo` and `csr2@ispnexus.demo` to seed data.
+- Replaced ad hoc client-side form state/validation with React Hook Form + Zod resolver flows across auth, subscriber creation, ticket creation/comments, and work-order creation.
+- Added shared operation validation schemas for subscriber, ticket, comment, and work-order forms.

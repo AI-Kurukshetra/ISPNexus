@@ -1,0 +1,175 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id              String        @id @default(cuid())
+  email           String        @unique
+  passwordHash    String
+  name            String
+  role            String        @default("admin")
+  createdAt       DateTime      @default(now())
+  assignedTickets FaultTicket[]
+  assignedOrders  WorkOrder[]
+  comments        TicketComment[]
+}
+
+model ServicePlan {
+  id            String         @id @default(cuid())
+  name          String
+  speedDown     Int
+  speedUp       Int
+  priceMonthly  Decimal        @db.Decimal(10, 2)
+  technology    String
+  subscriptions Subscription[]
+}
+
+model Customer {
+  id           String        @id @default(cuid())
+  firstName    String
+  lastName     String
+  email        String        @unique
+  phone        String?
+  street       String?
+  city         String?
+  state        String?
+  zip          String?
+  status       String        @default("ACTIVE")
+  createdAt    DateTime      @default(now())
+  subscription Subscription?
+  tickets      FaultTicket[]
+}
+
+model Subscription {
+  id          String         @id @default(cuid())
+  customerId  String         @unique
+  customer    Customer       @relation(fields: [customerId], references: [id])
+  planId      String
+  plan        ServicePlan    @relation(fields: [planId], references: [id])
+  deviceId    String?        @unique
+  device      NetworkDevice? @relation(fields: [deviceId], references: [id])
+  status      String         @default("ACTIVE")
+  activatedAt DateTime       @default(now())
+}
+
+model NetworkDevice {
+  id              String              @id @default(cuid())
+  serialNumber    String              @unique
+  model           String
+  vendor          String
+  type            String
+  technology      String
+  status          String              @default("ONLINE")
+  ipAddress       String?
+  firmwareVersion String?
+  configVersion   String?
+  locationLat     Float?
+  locationLng     Float?
+  installDate     DateTime?
+  lastSeenAt      DateTime?
+  createdAt       DateTime            @default(now())
+  subscription    Subscription?
+  metrics         PerformanceMetric[]
+  tickets         FaultTicket[]
+  alertRules      AlertRule[]
+  alertEvents     AlertEvent[]
+}
+
+model PerformanceMetric {
+  id         String        @id @default(cuid())
+  deviceId   String
+  device     NetworkDevice @relation(fields: [deviceId], references: [id])
+  metricName String
+  value      Float
+  unit       String
+  timestamp  DateTime
+
+  @@index([deviceId, metricName, timestamp])
+}
+
+model FaultTicket {
+  id          String          @id @default(cuid())
+  title       String
+  description String
+  severity    String
+  status      String          @default("OPEN")
+  deviceId    String?
+  device      NetworkDevice?  @relation(fields: [deviceId], references: [id])
+  customerId  String?
+  customer    Customer?       @relation(fields: [customerId], references: [id])
+  assigneeId  String?
+  assignee    User?           @relation(fields: [assigneeId], references: [id])
+  createdAt   DateTime        @default(now())
+  resolvedAt  DateTime?
+  comments    TicketComment[]
+  workOrders  WorkOrder[]
+
+  @@index([status])
+  @@index([severity])
+}
+
+model TicketComment {
+  id        String      @id @default(cuid())
+  ticketId  String
+  ticket    FaultTicket @relation(fields: [ticketId], references: [id])
+  authorId  String
+  author    User        @relation(fields: [authorId], references: [id])
+  body      String
+  createdAt DateTime    @default(now())
+}
+
+model WorkOrder {
+  id         String       @id @default(cuid())
+  title      String
+  type       String
+  status     String       @default("PENDING")
+  ticketId   String?
+  ticket     FaultTicket? @relation(fields: [ticketId], references: [id])
+  assigneeId String?
+  assignee   User?        @relation(fields: [assigneeId], references: [id])
+  dueDate    DateTime?
+  notes      String?
+  createdAt  DateTime     @default(now())
+}
+
+model InventoryItem {
+  id             String   @id @default(cuid())
+  name           String
+  type           String
+  serialNumber   String?
+  status         String   @default("AVAILABLE")
+  assignedDevice String?
+  location       String?
+  createdAt      DateTime @default(now())
+}
+
+model AlertRule {
+  id          String        @id @default(cuid())
+  deviceId    String
+  device      NetworkDevice @relation(fields: [deviceId], references: [id])
+  metricName  String
+  threshold   Float
+  operator    String
+  severity    String
+  alertEvents AlertEvent[]
+}
+
+model AlertEvent {
+  id           String        @id @default(cuid())
+  ruleId       String
+  rule         AlertRule     @relation(fields: [ruleId], references: [id])
+  deviceId     String
+  device       NetworkDevice @relation(fields: [deviceId], references: [id])
+  value        Float
+  severity     String
+  acknowledged Boolean       @default(false)
+  createdAt    DateTime      @default(now())
+
+  @@index([deviceId, createdAt])
+}

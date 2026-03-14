@@ -1,0 +1,323 @@
+@import "tailwindcss";
+
+:root {
+  --background: #edf4f7;
+  --background-deep: #d9e7ee;
+  --foreground: #102033;
+  --muted-foreground: #5f7082;
+  --brand-primary: #0d5c7b;
+  --brand-primary-strong: #093a53;
+  --brand-primary-soft: rgba(13, 92, 123, 0.12);
+  --brand-accent: #f08a24;
+  --brand-accent-soft: rgba(240, 138, 36, 0.16);
+  --surface: rgba(255, 255, 255, 0.84);
+  --surface-strong: rgba(255, 255, 255, 0.96);
+  --surface-subtle: rgba(245, 249, 251, 0.88);
+  --line-soft: rgba(16, 32, 51, 0.1);
+  --line-strong: rgba(16, 32, 51, 0.16);
+  --shadow-soft: 0 24px 60px rgba(10, 32, 51, 0.08);
+  --shadow-lifted: 0 28px 80px rgba(10, 32, 51, 0.14);
+  --radius-card: 24px;
+  --radius-control: 18px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: light;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(13, 92, 123, 0.12), transparent 28%),
+    radial-gradient(circle at 100% 0%, rgba(240, 138, 36, 0.16), transparent 24%),
+    radial-gradient(circle at 50% 100%, rgba(13, 92, 123, 0.07), transparent 30%),
+    linear-gradient(180deg, #f5fafc 0%, var(--background) 46%, #eef3f6 100%);
+  color: var(--foreground);
+  font-family: "Avenir Next", "Nunito Sans", "Segoe UI", sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+  background-size: 120px 120px;
+  mask-image: radial-gradient(circle at center, black, transparent 80%);
+  opacity: 0.35;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Sora", "Avenir Next Condensed", "Trebuchet MS", sans-serif;
+  letter-spacing: -0.03em;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+::selection {
+  background: rgba(13, 92, 123, 0.18);
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer base {
+  body {
+    @apply antialiased;
+  }
+}
+
+@layer components {
+  .ui-content {
+    @apply mx-auto w-full max-w-[1500px];
+  }
+
+  .ui-card {
+    @apply rounded-[24px] border p-5;
+    border-color: var(--line-soft);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(246, 250, 252, 0.92)),
+      var(--surface-strong);
+    box-shadow: var(--shadow-soft);
+    backdrop-filter: blur(16px);
+    animation: rise-in 0.45s ease-out both;
+  }
+
+  .ui-card-muted {
+    @apply rounded-[24px] border p-5;
+    border-color: rgba(13, 92, 123, 0.12);
+    background:
+      linear-gradient(160deg, rgba(13, 92, 123, 0.08), rgba(255, 255, 255, 0.98) 55%),
+      var(--surface-strong);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .ui-card-empty {
+    @apply rounded-[24px] border p-6 text-sm;
+    border-color: rgba(16, 32, 51, 0.08);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(245, 249, 251, 0.96)),
+      var(--surface);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  }
+
+  .ui-panel {
+    @apply relative overflow-hidden rounded-[28px] border p-6 sm:p-7;
+    border-color: rgba(13, 92, 123, 0.12);
+    background:
+      radial-gradient(circle at top right, rgba(240, 138, 36, 0.18), transparent 24%),
+      linear-gradient(140deg, rgba(13, 92, 123, 0.11), rgba(255, 255, 255, 0.98) 52%);
+    box-shadow: var(--shadow-lifted);
+  }
+
+  .ui-panel::after {
+    content: "";
+    position: absolute;
+    inset: auto -60px -80px auto;
+    height: 180px;
+    width: 180px;
+    border-radius: 999px;
+    background: radial-gradient(circle, rgba(13, 92, 123, 0.13), transparent 72%);
+    pointer-events: none;
+  }
+
+  .ui-eyebrow {
+    @apply text-[11px] font-semibold uppercase tracking-[0.28em];
+    color: var(--brand-primary);
+  }
+
+  .ui-copy {
+    color: var(--muted-foreground);
+  }
+
+  .ui-input,
+  .ui-select,
+  .ui-textarea {
+    @apply w-full rounded-[18px] border px-4 py-3 text-sm text-slate-900 outline-none;
+    border-color: rgba(16, 32, 51, 0.12);
+    background: rgba(255, 255, 255, 0.88);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    transition:
+      border-color 180ms ease,
+      box-shadow 180ms ease,
+      transform 180ms ease,
+      background-color 180ms ease;
+  }
+
+  .ui-input:focus,
+  .ui-select:focus,
+  .ui-textarea:focus {
+    border-color: rgba(13, 92, 123, 0.42);
+    box-shadow:
+      0 0 0 4px rgba(13, 92, 123, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.82);
+    background: rgba(255, 255, 255, 0.98);
+  }
+
+  .ui-button-primary,
+  .ui-button-secondary,
+  .ui-button-ghost {
+    @apply inline-flex items-center justify-center rounded-[18px] px-4 py-2.5 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .ui-button-primary {
+    background: linear-gradient(135deg, var(--brand-primary), var(--brand-primary-strong));
+    box-shadow:
+      0 14px 28px rgba(9, 58, 83, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.24);
+    color: white;
+  }
+
+  .ui-button-primary:hover {
+    transform: translateY(-1px);
+    box-shadow:
+      0 18px 34px rgba(9, 58, 83, 0.24),
+      inset 0 1px 0 rgba(255, 255, 255, 0.24);
+  }
+
+  .ui-button-secondary {
+    border: 1px solid rgba(16, 32, 51, 0.1);
+    background: rgba(255, 255, 255, 0.8);
+    color: #203449;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.76);
+  }
+
+  .ui-button-secondary:hover,
+  .ui-button-ghost:hover {
+    background: rgba(255, 255, 255, 0.96);
+    border-color: rgba(16, 32, 51, 0.16);
+  }
+
+  .ui-button-ghost {
+    color: var(--brand-primary);
+  }
+
+  .ui-pill {
+    @apply inline-flex items-center rounded-full border px-3 py-1.5 text-xs font-semibold transition;
+    border-color: rgba(16, 32, 51, 0.1);
+    background: rgba(255, 255, 255, 0.72);
+    color: #526375;
+    backdrop-filter: blur(12px);
+  }
+
+  .ui-pill:hover {
+    border-color: rgba(16, 32, 51, 0.18);
+    color: #203449;
+  }
+
+  .ui-pill-active {
+    border-color: rgba(13, 92, 123, 0.22);
+    background:
+      linear-gradient(135deg, rgba(13, 92, 123, 0.14), rgba(255, 255, 255, 0.92)),
+      white;
+    color: var(--brand-primary);
+    box-shadow: 0 10px 24px rgba(13, 92, 123, 0.1);
+  }
+
+  .ui-table-shell {
+    @apply overflow-hidden rounded-[26px] border;
+    border-color: var(--line-soft);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(247, 250, 252, 0.92)),
+      var(--surface-strong);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .ui-table {
+    @apply min-w-full text-left text-sm;
+  }
+
+  .ui-table thead {
+    background:
+      linear-gradient(180deg, rgba(13, 92, 123, 0.08), rgba(255, 255, 255, 0.8)),
+      white;
+  }
+
+  .ui-table thead th {
+    @apply px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.24em];
+    color: #6a7a8d;
+  }
+
+  .ui-table tbody tr {
+    border-top: 1px solid rgba(16, 32, 51, 0.06);
+    transition: background-color 160ms ease;
+  }
+
+  .ui-table tbody tr:hover {
+    background: rgba(13, 92, 123, 0.035);
+  }
+
+  .ui-data-list > * + * {
+    margin-top: 0.85rem;
+  }
+
+  .auth-shell {
+    @apply relative flex min-h-screen items-center justify-center px-6 py-12;
+  }
+
+  .auth-panel {
+    @apply relative w-full max-w-md overflow-hidden rounded-[30px] border p-8 sm:p-9;
+    border-color: rgba(16, 32, 51, 0.1);
+    background:
+      radial-gradient(circle at top right, rgba(240, 138, 36, 0.16), transparent 26%),
+      linear-gradient(165deg, rgba(13, 92, 123, 0.1), rgba(255, 255, 255, 0.97) 44%),
+      rgba(255, 255, 255, 0.9);
+    box-shadow: var(--shadow-lifted);
+    backdrop-filter: blur(18px);
+  }
+
+  .auth-panel::before {
+    content: "";
+    position: absolute;
+    inset: -70px auto auto -70px;
+    height: 180px;
+    width: 180px;
+    border-radius: 999px;
+    background: radial-gradient(circle, rgba(13, 92, 123, 0.16), transparent 70%);
+    pointer-events: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
