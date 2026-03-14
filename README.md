@@ -1,37 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ISPNexus
+
+**ISPNexus** is a full-stack operator console for Internet Service Providers — built to manage subscribers, network devices, fault tickets, work orders, and field teams from a single platform.
+
+## Features
+
+- **Subscriber Management** — track customer accounts, service plans, and subscription status
+- **Device Monitoring** — real-time visibility into network devices, performance metrics, and alerts
+- **Fault Tickets** — create, assign, and resolve network incidents with severity tracking
+- **Work Orders** — dispatch and manage field operations end-to-end
+- **Analytics** — bandwidth utilization, subscriber growth, and revenue trends
+- **Role-Based Access** — Admin, NOC Engineer, and CSR roles with scoped permissions
+- **Team Management** — invite operators via email, assign roles, manage access
+- **Password Reset** — secure HMAC-signed reset tokens delivered via Supabase email
+
+## Tech Stack
+
+- **Framework** — Next.js 16 (App Router)
+- **Language** — TypeScript 5 (strict)
+- **Styling** — Tailwind CSS v4
+- **Database** — PostgreSQL via [Supabase](https://supabase.com), Prisma ORM
+- **Auth** — NextAuth v5 (credentials provider, JWT strategy)
+- **API** — tRPC v11 + React Query
+- **Email** — Supabase Auth email service
+- **Database** — Supabase PostgreSQL
+- **Charts** — Recharts
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 20+
+- pnpm
+- A [Supabase](https://supabase.com) project (database + email delivery)
+
+### Installation
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Environment Variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Copy `.env.example` to `.env.local` and fill in the values:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+cp .env.example .env.local
+```
 
-## Learn More
+| Variable | Description |
+|---|---|
+| `DATABASE_URL` | Supabase pooled connection string (Session mode, port 5432) |
+| `DIRECT_URL` | Supabase direct connection string (port 5432) |
+| `AUTH_SECRET` | Random secret (`openssl rand -base64 32`) |
+| `AUTH_URL` | App base URL (e.g. `http://localhost:3000`) |
+| `SUPABASE_URL` | Supabase project URL |
+| `SUPABASE_SERVICE_ROLE_KEY` | Supabase service role key |
 
-To learn more about Next.js, take a look at the following resources:
+### Database Setup
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+pnpm db:migrate   # apply migrations
+pnpm db:seed      # seed demo data
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Development
 
-## Deploy on Vercel
+```bash
+pnpm dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Open [http://localhost:3000](http://localhost:3000).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# ISPNexus
+## Deployment
+
+Deployed on [Vercel](https://vercel.com). See the [deployment guide](https://nextjs.org/docs/app/building-your-application/deploying) for details. Make sure to add all environment variables in the Vercel project settings before deploying.
